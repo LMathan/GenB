@@ -4,68 +4,119 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* 
+  =========================================
+  PHASE 3: GEN B BIKE CARE DESIGN SYSTEM
+  =========================================
+*/
+
 :root {
-  --genb-purple: #251A76;
-  --genb-purple-dark: #1A1254;
-  --genb-purple-light: #35299B;
-  --genb-purple-subtle: #F0EFFF;
-
-  --genb-cyan: #00AEEF;
-  --genb-cyan-hover: #0099D4;
-  --genb-cyan-light: #E0F7FE;
-
+  /* Core Brand Colors */
+  --genb-primary: #0F172A; /* Deep Charcoal / Near-Black Navy */
+  --genb-secondary: #1E293B; /* Deep Navy */
+  --genb-accent: #00AEEF; /* Controlled Cyan (Use sparingly for actions) */
+  --genb-accent-hover: #0099D4;
+  
+  /* Functional Colors */
+  --genb-success: #16A34A; /* WhatsApp / Success */
+  --genb-success-hover: #15803D;
+  --genb-warning: #F59E0B; /* Ratings / Warnings */
+  
+  /* Neutrals */
   --genb-bg: #F8FAFC;
-  --genb-card: #FFFFFF;
-  --genb-text-dark: #0F172A;
-  --genb-text-muted: #475569;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --genb-surface: #FFFFFF;
+  --genb-surface-alt: #F1F5F9;
+  
+  /* Text */
+  --genb-text-primary: #0F172A;
+  --genb-text-secondary: #475569;
+  --genb-text-muted: #64748B;
+  --genb-text-inverse: #FFFFFF;
+
+  /* Shadcn Overrides (Aligned to new palette) */
+  --background: oklch(0.98 0 0); /* #F8FAFC equivalent */
+  --foreground: oklch(0.2 0 0); /* #0F172A equivalent */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.2 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --popover-foreground: oklch(0.2 0 0);
+  
+  --primary: oklch(0.2 0 0);
+  --primary-foreground: oklch(1 0 0);
+  
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0.2 0 0);
+  
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+  
+  --accent: oklch(0.96 0 0);
+  --accent-foreground: oklch(0.2 0 0);
+  
+  --destructive: oklch(0.6 0.2 27);
+  --border: oklch(0.92 0 0); /* #E2E8F0 equivalent */
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.7 0 0);
+  
+  /* Refined Radius System - Reduced rounding */
+  --radius: 0.5rem; /* Base radius, medium */
+  --radius-sm: 0.25rem;
+  --radius-lg: 0.75rem;
 }
 
 @theme {
-  --color-genb-purple: #251A76;
-  --color-genb-purple-dark: #1A1254;
-  --color-genb-purple-light: #35299B;
-  --color-genb-purple-subtle: #F0EFFF;
+  /* Expose custom colors to Tailwind */
+  --color-brand-primary: var(--genb-primary);
+  --color-brand-secondary: var(--genb-secondary);
+  --color-brand-accent: var(--genb-accent);
+  --color-brand-accent-hover: var(--genb-accent-hover);
+  --color-brand-success: var(--genb-success);
+  --color-brand-success-hover: var(--genb-success-hover);
+  --color-brand-warning: var(--genb-warning);
+  --color-brand-bg: var(--genb-bg);
+  --color-brand-surface: var(--genb-surface);
+  --color-brand-surface-alt: var(--genb-surface-alt);
+  
+  /* Expose typography spacing & structure */
+  --spacing-section: 6rem;
+  --spacing-container: 1.5rem;
+  
+  /* Shadows - Subtle & Professional */
+  --shadow-subtle: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
+  --shadow-elevated: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
+  --shadow-focus: 0 0 0 2px var(--genb-bg), 0 0 0 4px var(--genb-primary);
+}
 
-  --color-genb-cyan: #00AEEF;
-  --color-genb-cyan-hover: #0099D4;
-  --color-genb-cyan-light: #E0F7FE;
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-sans);
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-  --color-genb-bg: #F8FAFC;
-  --color-genb-card: #FFFFFF;
-  --color-genb-text-dark: #0F172A;
-  --color-genb-text-muted: #475569;
+  /* Radius overrides for components */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.5rem;
 }
 
 html {
@@ -74,127 +125,65 @@ html {
 
 body {
   background-color: var(--genb-bg);
-  color: var(--genb-text-dark);
+  color: var(--genb-text-primary);
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Utilities for Premium Automotive Glassmorphism & UI */
+/* =========================================
+   DESIGN SYSTEM UTILITIES
+   ========================================= */
+
+/* Glassmorphism - Significantly Reduced */
+/* Only use for elements that truly need background context (e.g., sticky nav) */
 .glass-nav {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-bottom: 1px solid var(--border);
 }
 
-.dark-glass-card {
-  background: rgba(26, 18, 84, 0.85);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* Surfaces */
+.surface-base {
+  background: var(--genb-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
 }
 
-/* Custom Scrollbar */
+.surface-elevated {
+  background: var(--genb-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-elevated);
+}
+
+.surface-dark {
+  background: var(--genb-primary);
+  color: var(--genb-text-inverse);
+  border-radius: var(--radius-lg);
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F1F5F9;
+  background: var(--genb-surface-alt);
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 4px;
+  background: var(--genb-text-muted);
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: var(--genb-text-secondary);
 }
 
-/* Subtle Automotive Grid Pattern */
+/* Subtle Automotive Grid Pattern (Restrained) */
 .bg-auto-pattern {
-  background-image: radial-gradient(rgba(37, 26, 118, 0.06) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px);
   background-size: 24px 24px;
-}
-
-@theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
-  --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {
@@ -204,7 +193,38 @@ body {
   body {
     @apply bg-background text-foreground;
   }
-  html {
-    @apply font-sans;
+  
+  /* Typography Hierarchy Foundations */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
+  
+  /* Avoid excessive uppercase natively, enforce clean styles */
+  .typography-display {
+    @apply text-5xl md:text-6xl font-extrabold leading-tight tracking-tight;
+  }
+  .typography-h1 {
+    @apply text-4xl md:text-5xl font-bold leading-tight tracking-tight;
+  }
+  .typography-h2 {
+    @apply text-3xl md:text-4xl font-bold leading-snug tracking-tight;
+  }
+  .typography-h3 {
+    @apply text-2xl md:text-3xl font-semibold leading-snug tracking-tight;
+  }
+  .typography-body-lg {
+    @apply text-lg md:text-xl font-medium leading-relaxed;
+  }
+  .typography-body {
+    @apply text-base font-normal leading-relaxed;
+  }
+  .typography-small {
+    @apply text-sm font-medium leading-relaxed;
+  }
+  .typography-label {
+    @apply text-xs font-bold uppercase tracking-wide;
+  }
+  .typography-caption {
+    @apply text-xs font-normal text-slate-500 leading-relaxed;
   }
 }

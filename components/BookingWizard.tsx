@@ -16,7 +16,7 @@ import {
   Clock,
   Sparkles,
 } from "lucide-react";
-import { SITE_CONFIG } from "@/config/site";
+import { SITE_CONFIG, getPhoneHref, getWhatsAppHref } from "@/config/site";
 
 const BRANDS = [
   "Honda",
@@ -110,7 +110,7 @@ export default function BookingWizard() {
 📅 Date: ${preferredDate}
 ⏰ Time: ${preferredTime}`;
 
-    return `https://wa.me/${targetBranchObj.whatsapp}?text=${encodeURIComponent(msg)}`;
+    return getWhatsAppHref(targetBranchObj.whatsapp, msg);
   };
 
   return (
@@ -498,7 +498,7 @@ export default function BookingWizard() {
               </a>
 
               <a
-                href={`tel:${targetBranchObj.phoneRaw}`}
+                href={getPhoneHref(targetBranchObj.phoneRaw)}
                 className="w-full flex items-center justify-center py-3 px-4 rounded-xl bg-[#251A76] hover:bg-[#1A1254] text-white font-extrabold text-xs transition"
               >
                 <Phone className="w-4 h-4 mr-2 text-[#00AEEF]" />

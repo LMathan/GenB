@@ -19,7 +19,7 @@ export const metadata = {
     "Explore complete bike services offered by GEN B BIKE CARE in Chithode and Perundurai: Periodic service, engine tuning, brake repairs, chain sprocket, electrical troubleshooting.",
 };
 
-import { SITE_CONFIG } from "@/config/site";
+import { SITE_CONFIG, getWhatsAppHref } from "@/config/site";
 
 export default function ServicesPage() {
   return (
@@ -103,7 +103,7 @@ export default function ServicesPage() {
 
           <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
             <a
-              href={`https://wa.me/${SITE_CONFIG.branches[0].whatsapp}?text=Hi%20GEN%20B%20BIKE%20CARE%2C%20I%20have%20a%20specific%20repair%20enquiry.`}
+              href={getWhatsAppHref(SITE_CONFIG.branches[0].whatsapp, "Hi GEN B BIKE CARE, I have a specific repair enquiry.")}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-black text-xs shadow-md transition"

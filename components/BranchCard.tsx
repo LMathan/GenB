@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Phone, MessageSquare, MapPin, Clock, ArrowRight, Navigation } from "lucide-react";
+import { getPhoneHref, getWhatsAppHref } from "@/config/site";
 
 export interface BranchInfo {
   name: string;
@@ -16,9 +17,10 @@ export interface BranchInfo {
 }
 
 export default function BranchCard({ branch }: { branch: BranchInfo }) {
-  const whatsappUrl = `https://wa.me/${branch.whatsapp}?text=${encodeURIComponent(
+  const whatsappUrl = getWhatsAppHref(
+    branch.whatsapp,
     `Hi GEN B BIKE CARE (${branch.name} Branch), I would like to enquiry about servicing my bike.`
-  )}`;
+  );
 
   return (
     <div className="bg-white rounded-2xl border border-slate-200/90 shadow-md hover:shadow-xl hover:border-purple-300 transition duration-200 p-6 flex flex-col justify-between relative overflow-hidden group">
@@ -78,7 +80,7 @@ export default function BranchCard({ branch }: { branch: BranchInfo }) {
         <div className="grid grid-cols-2 gap-2">
           {/* CALL BUTTON */}
           <a
-            href={`tel:${branch.rawPhone}`}
+            href={getPhoneHref(branch.rawPhone)}
             className="flex items-center justify-center py-2.5 px-3 rounded-xl bg-[#251A76] hover:bg-[#1A1254] text-white text-xs font-extrabold shadow-sm transition"
           >
             <Phone className="w-3.5 h-3.5 mr-1.5 text-[#00AEEF]" />

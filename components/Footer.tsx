@@ -6,6 +6,7 @@ import Image from "next/image";
 import { MapPin, Phone, MessageSquare, ShieldCheck, ArrowUpRight } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/Icons";
 import { Link001, Link002 } from "@/components/ui/skiper-ui/skiper40";
+import { SITE_CONFIG, getPhoneHref } from "@/config/site";
 
 export default function Footer() {
   return (
@@ -38,18 +39,18 @@ export default function Footer() {
             </div>
 
             <p className="text-xs text-slate-300 leading-relaxed">
-              Professional two-wheeler service, repair, and maintenance workshop operating across Chithode and Perundurai in Erode region.
+              {SITE_CONFIG.description}
             </p>
 
             <div className="pt-2">
               <a
-                href="https://www.instagram.com/p/DcdafwiSVSg/"
+                href={SITE_CONFIG.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center space-x-2 text-xs font-bold text-cyan-300 hover:text-white bg-white/5 border border-white/10 px-3 py-2 rounded-lg transition"
               >
                 <Instagram className="w-4 h-4 text-[#00AEEF]" />
-                <span>Follow GEN B BIKE CARE on Instagram</span>
+                <span>Follow {SITE_CONFIG.name} on Instagram</span>
               </a>
             </div>
           </div>
@@ -103,50 +104,48 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Branch 1 — Chithode */}
+          {/* Column 3: Branch 1 */}
           <div className="space-y-3">
             <div className="flex items-center space-x-2 text-xs font-black uppercase tracking-widest text-[#00AEEF]">
               <MapPin className="w-3.5 h-3.5" />
-              <span>CHITHODE BRANCH</span>
+              <span>{SITE_CONFIG.branches[0].name.toUpperCase()} BRANCH</span>
             </div>
             <p className="text-xs text-slate-300 leading-relaxed">
-              36, Perundurai Road, Nadupalayam, Chithode, Erode, Tamil Nadu 638102
+              {SITE_CONFIG.branches[0].address}
             </p>
             <div className="text-xs space-y-1">
               <a
-                href="tel:+919176099009"
+                href={getPhoneHref(SITE_CONFIG.branches[0].phoneRaw)}
                 className="flex items-center text-white hover:text-cyan-300 font-bold transition"
               >
                 <Phone className="w-3.5 h-3.5 text-[#00AEEF] mr-1.5" />
-                +91 91760 99009
+                {SITE_CONFIG.branches[0].phone}
               </a>
-              <p className="text-slate-400 text-[11px]">
-                Mon–Sat: 9:00 AM – 8:00 PM
-                <br />
-                Sun: 10:00 AM – 2:00 PM
+              <p className="text-slate-400 text-[11px] whitespace-pre-line">
+                {SITE_CONFIG.branches[0].hours.join("\n")}
               </p>
             </div>
           </div>
 
-          {/* Column 4: Branch 2 — Perundurai */}
+          {/* Column 4: Branch 2 */}
           <div className="space-y-3">
             <div className="flex items-center space-x-2 text-xs font-black uppercase tracking-widest text-[#00AEEF]">
               <MapPin className="w-3.5 h-3.5" />
-              <span>PERUNDURAI BRANCH</span>
+              <span>{SITE_CONFIG.branches[1].name.toUpperCase()} BRANCH</span>
             </div>
             <p className="text-xs text-slate-300 leading-relaxed">
-              Bhavani Road, 134/264, near Anna Silai, Perundurai, Tamil Nadu 638052
+              {SITE_CONFIG.branches[1].address}
             </p>
             <div className="text-xs space-y-1">
               <a
-                href="tel:+919176099119"
+                href={getPhoneHref(SITE_CONFIG.branches[1].phoneRaw)}
                 className="flex items-center text-white hover:text-cyan-300 font-bold transition"
               >
                 <Phone className="w-3.5 h-3.5 text-[#00AEEF] mr-1.5" />
-                +91 91760 99119
+                {SITE_CONFIG.branches[1].phone}
               </a>
-              <p className="text-slate-400 text-[11px]">
-                Mon–Sat: 9:00 AM – 7:30 PM
+              <p className="text-slate-400 text-[11px] whitespace-pre-line">
+                {SITE_CONFIG.branches[1].hours.join("\n")}
               </p>
             </div>
           </div>

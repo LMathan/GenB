@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileBar from "@/components/StickyMobileBar";
 import SmoothScroll from "@/components/SmoothScroll";
+import { SITE_CONFIG } from "@/config/site";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -79,11 +80,11 @@ export default function RootLayout({
   const jsonLdChithode = {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
-    name: "GEN B BIKE CARE — Bike Service Center Chithode",
+    name: `GEN B BIKE CARE — Bike Service Center ${SITE_CONFIG.branches[0].name}`,
     image: "https://genbbikecare.com/logo.png",
-    telePhone: "+919176099009",
+    telePhone: SITE_CONFIG.branches[0].phoneRaw,
     url: "https://genbbikecare.com",
-    sameAs: ["https://genbbikecare.in", "https://www.instagram.com/p/DcdafwiSVSg/"],
+    sameAs: ["https://genbbikecare.in", SITE_CONFIG.social.instagram],
     description:
       "Multi-brand bike service center near me in Chithode offering Honda bike service, Hero bike service, Bajaj, TVS, Yamaha & Royal Enfield service.",
     address: {
@@ -120,11 +121,11 @@ export default function RootLayout({
   const jsonLdPerundurai = {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
-    name: "GEN B BIKE CARE — Bike Service Center Perundurai",
+    name: `GEN B BIKE CARE — Bike Service Center ${SITE_CONFIG.branches[1].name}`,
     image: "https://genbbikecare.com/logo.png",
-    telePhone: "+919176099119",
+    telePhone: SITE_CONFIG.branches[1].phoneRaw,
     url: "https://genbbikecare.com",
-    sameAs: ["https://genbbikecare.in", "https://www.instagram.com/p/DcdafwiSVSg/"],
+    sameAs: ["https://genbbikecare.in", SITE_CONFIG.social.instagram],
     description:
       "Multi-brand bike service center near me in Perundurai offering Honda bike service, Hero bike service, Bajaj, TVS, Yamaha & Royal Enfield service.",
     address: {

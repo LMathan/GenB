@@ -2,12 +2,12 @@
 
 import React, { useState } from "react";
 import { MapPin, Phone, Clock, Navigation, MessageSquare, ArrowRight } from "lucide-react";
-import { BRANCHES } from "./Navbar";
+import { SITE_CONFIG, getPhoneHref, getWhatsAppHref } from "@/config/site";
 
 export default function BranchSwitcherTab() {
-  const [activeBranch, setActiveBranch] = useState<"Chithode" | "Perundurai">("Chithode");
+  const [activeBranch, setActiveBranch] = useState<"chithode" | "perundurai">("chithode");
 
-  const branch = BRANCHES.find((b) => b.name === activeBranch) || BRANCHES[0];
+  const branch = SITE_CONFIG.branches.find((b) => b.id === activeBranch) || SITE_CONFIG.branches[0];
 
   return (
     <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xl p-6 md:p-10 relative overflow-hidden">
@@ -31,27 +31,27 @@ export default function BranchSwitcherTab() {
         {/* Tab Switcher Buttons */}
         <div className="flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
           <button
-            onClick={() => setActiveBranch("Chithode")}
+            onClick={() => setActiveBranch("chithode")}
             className={`px-5 py-2.5 rounded-xl text-xs font-black transition duration-200 flex items-center space-x-2 ${
-              activeBranch === "Chithode"
+              activeBranch === "chithode"
                 ? "bg-[#251A76] text-white shadow-md shadow-purple-900/20"
                 : "text-slate-600 hover:text-[#251A76]"
             }`}
           >
-            <MapPin className={`w-3.5 h-3.5 ${activeBranch === "Chithode" ? "text-[#00AEEF]" : ""}`} />
-            <span>Chithode Branch</span>
+            <MapPin className={`w-3.5 h-3.5 ${activeBranch === "chithode" ? "text-[#00AEEF]" : ""}`} />
+            <span>{SITE_CONFIG.branches[0].name} Branch</span>
           </button>
 
           <button
-            onClick={() => setActiveBranch("Perundurai")}
+            onClick={() => setActiveBranch("perundurai")}
             className={`px-5 py-2.5 rounded-xl text-xs font-black transition duration-200 flex items-center space-x-2 ${
-              activeBranch === "Perundurai"
+              activeBranch === "perundurai"
                 ? "bg-[#251A76] text-white shadow-md shadow-purple-900/20"
                 : "text-slate-600 hover:text-[#251A76]"
             }`}
           >
-            <MapPin className={`w-3.5 h-3.5 ${activeBranch === "Perundurai" ? "text-[#00AEEF]" : ""}`} />
-            <span>Perundurai Branch</span>
+            <MapPin className={`w-3.5 h-3.5 ${activeBranch === "perundurai" ? "text-[#00AEEF]" : ""}`} />
+            <span>{SITE_CONFIG.branches[1].name} Branch</span>
           </button>
         </div>
       </div>
@@ -87,7 +87,7 @@ export default function BranchSwitcherTab() {
               <Phone className="w-5 h-5 text-[#00AEEF] shrink-0" />
               <div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase">Phone Number</div>
-                <a href={`tel:${branch.rawPhone}`} className="text-xs font-black text-[#251A76] hover:text-[#00AEEF]">
+                <a href={getPhoneHref(branch.phoneRaw)} className="text-xs font-black text-[#251A76] hover:text-[#00AEEF]">
                   {branch.phone}
                 </a>
               </div>
@@ -97,7 +97,7 @@ export default function BranchSwitcherTab() {
               <Clock className="w-5 h-5 text-[#00AEEF] shrink-0" />
               <div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase">Working Hours</div>
-                <div className="text-[11px] font-bold text-slate-700">{branch.hours}</div>
+                <div className="text-[11px] font-bold text-slate-700 whitespace-pre-line">{branch.shortHours}</div>
               </div>
             </div>
           </div>
@@ -114,14 +114,14 @@ export default function BranchSwitcherTab() {
 
           <div className="space-y-2 pt-2">
             <a
-              href={`tel:${branch.rawPhone}`}
+              href={getPhoneHref(branch.phoneRaw)}
               className="w-full flex items-center justify-center py-3 px-4 rounded-xl bg-white text-[#251A76] font-black text-xs hover:bg-slate-100 transition shadow-sm"
             >
               <Phone className="w-4 h-4 mr-2 text-[#00AEEF]" /> CALL {branch.name.toUpperCase()} BRANCH
             </a>
 
             <a
-              href={`https://wa.me/${branch.whatsapp}?text=${encodeURIComponent(`Hi GEN B BIKE CARE (${branch.name} Branch), I would like to enquire about servicing my bike.`)}`}
+              href={getWhatsAppHref(branch.whatsapp, `Hi GEN B BIKE CARE (${branch.name} Branch), I would like to enquire about servicing my bike.`)}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full flex items-center justify-center py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs transition"

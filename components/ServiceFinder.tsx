@@ -3,67 +3,19 @@
 import React, { useState } from "react";
 import { Wrench, ArrowRight, CheckCircle2, MessageSquare, AlertCircle, HelpCircle } from "lucide-react";
 
-const ISSUES = [
-  {
-    id: "start",
-    label: "Bike won't start / Starting trouble",
-    icon: "⚡",
-    desc: "Self start not clicking, kick start slip, battery drain or spark plug issue",
-  },
-  {
-    id: "engine",
-    label: "Engine noise / Abnormal vibration",
-    icon: "🔧",
-    desc: "Tappet noise, knocking, high heat or unusual mechanical clatter",
-  },
-  {
-    id: "brake",
-    label: "Brake issue / Squeal noise",
-    icon: "🛑",
-    desc: "Low brake pressure, spongy lever, squealing noise, or worn brake pads",
-  },
-  {
-    id: "chain",
-    label: "Chain noise / Loose sprocket",
-    icon: "⚙️",
-    desc: "Chain slack, grinding sound, dry chain, or jumpy gear shifts",
-  },
-  {
-    id: "pickup",
-    label: "Poor pickup / Low mileage",
-    icon: "🚀",
-    desc: "Engine hesitation, slow acceleration, carburetor/EFI adjustment needed",
-  },
-  {
-    id: "battery",
-    label: "Battery dead / Horn & Light weak",
-    icon: "🔋",
-    desc: "Dim headlight, weak horn, indicator failure or battery charging issue",
-  },
-  {
-    id: "regular",
-    label: "Regular / Periodic Service Due",
-    icon: "🛢️",
-    desc: "Scheduled oil change, air filter cleaning, tuning & overall checkup",
-  },
-  {
-    id: "other",
-    label: "Other General Inspection / Unknown Sound",
-    icon: "🔍",
-    desc: "Clutch slip, suspension leakage, tire puncture, or custom repair requirement",
-  },
-];
+import { SITE_CONFIG, getWhatsAppHref } from "@/config/site";
 
 export default function ServiceFinder() {
   const [selectedIssue, setSelectedIssue] = useState<string | null>(null);
-  const [selectedBranch, setSelectedBranch] = useState<"Chithode" | "Perundurai">("Chithode");
+  const [selectedBranch, setSelectedBranch] = useState<"chithode" | "perundurai">("chithode");
 
-  const chosenObj = ISSUES.find((i) => i.id === selectedIssue);
+  const chosenObj = SITE_CONFIG.serviceIssues.find((i) => i.id === selectedIssue);
 
   const getWhatsappUrl = () => {
-    const text = `Hi GEN B BIKE CARE (${selectedBranch} Branch),\n\nI need help with my bike:\n- Problem: ${chosenObj?.label || "General Enquiry"}\n- Details: ${chosenObj?.desc || ""}\n\nPlease guide me on servicing.`;
-    const phone = selectedBranch === "Chithode" ? "919176099009" : "919176099119";
-    return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    const branch = SITE_CONFIG.branches.find(b => b.id === selectedBranch);
+    if (!branch) return "";
+    const text = `Hi GEN B BIKE CARE (${branch.name} Branch),\n\nI need help with my bike:\n- Problem: ${chosenObj?.label || "General Enquiry"}\n- Details: ${chosenObj?.desc || ""}\n\nPlease guide me on servicing.`;
+    return getWhatsAppHref(branch.whatsapp, text);
   };
 
   return (
@@ -87,7 +39,7 @@ export default function ServiceFinder() {
 
       {/* Grid of Issues */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 relative z-10 mb-8">
-        {ISSUES.map((issue) => {
+        {SITE_CONFIG.serviceIssues.map((issue) => {
           const active = selectedIssue === issue.id;
           return (
             <button
@@ -143,9 +95,9 @@ export default function ServiceFinder() {
             {/* Branch Picker */}
             <div className="flex items-center space-x-2 bg-slate-900/60 p-1 rounded-xl border border-white/10">
               <button
-                onClick={() => setSelectedBranch("Chithode")}
+                onClick={() => setSelectedBranch("chithode")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
-                  selectedBranch === "Chithode"
+                  selectedBranch === "chithode"
                     ? "bg-[#00AEEF] text-white"
                     : "text-slate-300 hover:text-white"
                 }`}
@@ -153,9 +105,9 @@ export default function ServiceFinder() {
                 Chithode
               </button>
               <button
-                onClick={() => setSelectedBranch("Perundurai")}
+                onClick={() => setSelectedBranch("perundurai")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
-                  selectedBranch === "Perundurai"
+                  selectedBranch === "perundurai"
                     ? "bg-[#00AEEF] text-white"
                     : "text-slate-300 hover:text-white"
                 }`}

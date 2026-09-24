@@ -19,91 +19,7 @@ export const metadata = {
     "Explore complete bike services offered by GEN B BIKE CARE in Chithode and Perundurai: Periodic service, engine tuning, brake repairs, chain sprocket, electrical troubleshooting.",
 };
 
-const DETAILED_SERVICES = [
-  {
-    id: "periodic",
-    title: "Periodic Maintenance Service",
-    desc: "Recommended every 2,500km – 3,000km to maintain engine health, smooth gear shifts, and optimal fuel efficiency.",
-    checklist: [
-      "Engine oil check & flush replacement",
-      "Air filter cleaning or filter replacement",
-      "Spark plug cleaning & gap adjustment",
-      "Brake shoe / pad inspection & adjustment",
-      "Throttle & clutch cable lubrication",
-      "Battery terminal voltage & charging check",
-      "Tire pressure & tread depth check",
-      "General wash & lube application",
-    ],
-    badge: "Popular Service",
-  },
-  {
-    id: "general",
-    title: "General Full Service & Inspection",
-    desc: "A thorough top-to-bottom multi-point checkup for bikes that haven't been serviced in a while.",
-    checklist: [
-      "Complete multi-point vehicle inspection",
-      "Carburetor cleaning / EFI throttle body check",
-      "Drive chain adjustment & spray lube",
-      "Front & rear brake cleaning",
-      "Wheel bearing & steering head check",
-      "Electrical switch & horn operation check",
-      "Water wash & shine polish",
-    ],
-    badge: "Comprehensive",
-  },
-  {
-    id: "engine",
-    title: "Engine Diagnostics & Tappet Service",
-    desc: "Specialized mechanical service to fix engine noise, knocking, low compression, or excessive heating.",
-    checklist: [
-      "Tappet / valve clearance measurement & setting",
-      "Piston & cylinder compression test",
-      "Engine gasket & oil seal leak fix",
-      "Coolant level & radiator inspection",
-      "Exhaust carbon cleaning",
-      "Engine oil pressure verification",
-    ],
-    badge: "Specialized",
-  },
-  {
-    id: "brake",
-    title: "Brake Shoe & Disc Brake Service",
-    desc: "Essential safety service to ensure firm lever feel, squeal-free braking, and maximum stopping power.",
-    checklist: [
-      "Disc brake pad thickness measurement",
-      "Brake caliper pin lubrication",
-      "Brake fluid flush & hydraulic bleeding",
-      "Rear brake drum de-dusting & shoe adjustment",
-      "Brake lever pivot greasing",
-    ],
-    badge: "Safety Essential",
-  },
-  {
-    id: "electrical",
-    title: "Electrical & Battery Diagnostics",
-    desc: "Fixing self-start failure, dim headlamps, blown fuses, and battery discharge issues.",
-    checklist: [
-      "Battery voltage & load test",
-      "Self-starter motor & relay check",
-      "Alternator & RR unit charging test",
-      "Wiring harness continuity inspection",
-      "Indicator & brake light bulb replacement",
-    ],
-    badge: "Quick Fix",
-  },
-  {
-    id: "chain",
-    title: "Chain & Sprocket Maintenance",
-    desc: "Prevents chain snapping, gear jumping, and harsh power transmission noise.",
-    checklist: [
-      "Chain slack measurement & alignment",
-      "Ultrasonic / spray chain degreasing",
-      "Sprocket teeth wear inspection",
-      "High-viscosity chain lube application",
-    ],
-    badge: "Transmission",
-  },
-];
+import { SITE_CONFIG } from "@/config/site";
 
 export default function ServicesPage() {
   return (
@@ -124,7 +40,7 @@ export default function ServicesPage() {
 
         {/* Detailed Service Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {DETAILED_SERVICES.map((srv) => (
+          {SITE_CONFIG.detailedServices.map((srv) => (
             <div
               key={srv.id}
               className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-md hover:shadow-xl transition flex flex-col justify-between"
@@ -181,13 +97,13 @@ export default function ServicesPage() {
               Need a Custom Repair or Inspection?
             </h3>
             <p className="text-slate-300 text-sm max-w-xl">
-              Talk directly with our workshop managers at Chithode (+91 91760 99009) or Perundurai (+91 91760 99119).
+              Talk directly with our workshop managers at {SITE_CONFIG.branches[0].name} ({SITE_CONFIG.branches[0].phone}) or {SITE_CONFIG.branches[1].name} ({SITE_CONFIG.branches[1].phone}).
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
             <a
-              href="https://wa.me/919176099009?text=Hi%20GEN%20B%20BIKE%20CARE%2C%20I%20have%20a%20specific%20repair%20enquiry."
+              href={`https://wa.me/${SITE_CONFIG.branches[0].whatsapp}?text=Hi%20GEN%20B%20BIKE%20CARE%2C%20I%20have%20a%20specific%20repair%20enquiry.`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-black text-xs shadow-md transition"

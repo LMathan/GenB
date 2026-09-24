@@ -3,33 +3,9 @@
 import React from "react";
 import { Bike, ShieldCheck, CheckCircle2, Zap, Wrench } from "lucide-react";
 
+import { SITE_CONFIG } from "@/config/site";
+
 export default function MultiBrandShowcase() {
-  const CATEGORIES = [
-    {
-      title: "Commuter & Daily Rides",
-      desc: "Hero, Honda, TVS, Bajaj 100cc-150cc commuter motorcycles designed for daily reliability.",
-      points: ["Engine Oil Flush", "Carb/EFI Tuning", "Brake Shoe Replacement"],
-      color: "bg-blue-50 border-blue-200 text-blue-900",
-    },
-    {
-      title: "Scooters & Gearless",
-      desc: "Activa, Jupiter, Access, Ntorq gearless scooters requiring CVT belt & transmission inspection.",
-      points: ["CVT Belt & Roller Check", "Fork Bushing Care", "Spark Plug Service"],
-      color: "bg-purple-50 border-purple-200 text-purple-900",
-    },
-    {
-      title: "Executive & Sports",
-      desc: "Pulsar, Apache, FZ, MT-15, Duke performance single & twin cylinder engines.",
-      points: ["Coolant Level Inspection", "Chain & Sprocket Lube", "Disc Brake Bleeding"],
-      color: "bg-cyan-50 border-cyan-200 text-cyan-900",
-    },
-    {
-      title: "Cruisers & Classics",
-      desc: "Royal Enfield Classic, Bullet, Meteor, Hunter 350 & Jawa multi-cylinder cruisers.",
-      points: ["Tappet Clearance Adjustment", "Clutch Cable Lube", "Heavy Fork Service"],
-      color: "bg-[#251A76]/5 border-purple-200 text-[#251A76]",
-    },
-  ];
 
   return (
     <div className="bg-white rounded-3xl border border-slate-200 p-6 md:p-10 shadow-lg">
@@ -46,7 +22,7 @@ export default function MultiBrandShowcase() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {CATEGORIES.map((cat, index) => (
+        {SITE_CONFIG.brandCategories.map((cat, index) => (
           <div
             key={index}
             className={`p-5 rounded-2xl border ${cat.color} flex flex-col justify-between hover:shadow-md transition`}

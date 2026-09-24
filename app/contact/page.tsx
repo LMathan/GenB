@@ -3,11 +3,12 @@
 import React, { useState } from "react";
 import { Phone, MessageSquare, MapPin, Mail, Send, CheckCircle2, Clock } from "lucide-react";
 import BranchCard from "@/components/BranchCard";
+import { SITE_CONFIG, getPhoneHref, getWhatsAppHref } from "@/config/site";
 
 export default function ContactPage() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [branch, setBranch] = useState("Chithode");
+  const [branch, setBranch] = useState("chithode");
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
 
@@ -16,11 +17,13 @@ export default function ContactPage() {
     setSent(true);
   };
 
-  const whatsappLink = `https://wa.me/${
-    branch === "Chithode" ? "919176099009" : "919176099119"
-  }?text=${encodeURIComponent(
-    `Hi GEN B BIKE CARE (${branch} Branch),\n\nName: ${name}\nPhone: ${phone}\nMessage: ${message}`
-  )}`;
+  const selectedBranchData = SITE_CONFIG.branches.find(b => b.id === branch);
+  const whatsappLink = selectedBranchData
+    ? getWhatsAppHref(
+        selectedBranchData.whatsapp,
+        `Hi GEN B BIKE CARE (${selectedBranchData.name} Branch),\n\nName: ${name}\nPhone: ${phone}\nMessage: ${message}`
+      )
+    : "";
 
   return (
     <div className="bg-[#F8FAFC] py-12 md:py-20">
@@ -60,8 +63,8 @@ export default function ContactPage() {
                     onChange={(e) => setBranch(e.target.value)}
                     className="w-full p-3.5 rounded-xl border border-slate-300 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#00AEEF]"
                   >
-                    <option value="Chithode">Chithode Branch (+91 91760 99009)</option>
-                    <option value="Perundurai">Perundurai Branch (+91 91760 99119)</option>
+                    <option value="chithode">{SITE_CONFIG.branches[0].name} Branch ({SITE_CONFIG.branches[0].phone})</option>
+                    <option value="perundurai">{SITE_CONFIG.branches[1].name} Branch ({SITE_CONFIG.branches[1].phone})</option>
                   </select>
                 </div>
 
@@ -121,7 +124,7 @@ export default function ContactPage() {
                   ENQUIRY READY TO DISPATCH
                 </h3>
                 <p className="text-xs text-slate-600 mb-6 max-w-sm mx-auto">
-                  Click below to send your enquiry directly to our {branch} workshop manager via WhatsApp.
+                  Click below to send your enquiry directly to our {selectedBranchData?.name} workshop manager via WhatsApp.
                 </p>
                 <a
                   href={whatsappLink}
@@ -130,7 +133,7 @@ export default function ContactPage() {
                   className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-emerald-600 text-white font-black text-xs shadow-md"
                 >
                   <MessageSquare className="w-4 h-4 mr-2" />
-                  SEND VIA WHATSAPP ({branch.toUpperCase()})
+                  SEND VIA WHATSAPP ({selectedBranchData?.name.toUpperCase()})
                 </a>
               </div>
             )}
@@ -149,28 +152,28 @@ export default function ContactPage() {
 
               <div className="space-y-3">
                 <a
-                  href="tel:+919176099009"
+                  href={getPhoneHref(SITE_CONFIG.branches[0].phoneRaw)}
                   className="block p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/10 transition"
                 >
                   <div className="text-xs font-bold text-cyan-300 uppercase">
-                    CHITHODE BRANCH
+                    {SITE_CONFIG.branches[0].name.toUpperCase()} BRANCH
                   </div>
-                  <div className="text-lg font-black text-white">+91 91760 99009</div>
+                  <div className="text-lg font-black text-white">{SITE_CONFIG.branches[0].phone}</div>
                   <div className="text-[11px] text-slate-300 mt-1">
-                    Mon–Sat 9AM–8PM | Sun 10AM–2PM
+                    {SITE_CONFIG.branches[0].shortHours}
                   </div>
                 </a>
 
                 <a
-                  href="tel:+919176099119"
+                  href={getPhoneHref(SITE_CONFIG.branches[1].phoneRaw)}
                   className="block p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/10 transition"
                 >
                   <div className="text-xs font-bold text-cyan-300 uppercase">
-                    PERUNDURAI BRANCH
+                    {SITE_CONFIG.branches[1].name.toUpperCase()} BRANCH
                   </div>
-                  <div className="text-lg font-black text-white">+91 91760 99119</div>
+                  <div className="text-lg font-black text-white">{SITE_CONFIG.branches[1].phone}</div>
                   <div className="text-[11px] text-slate-300 mt-1">
-                    Mon–Sat 9:00 AM – 7:30 PM
+                    {SITE_CONFIG.branches[1].shortHours}
                   </div>
                 </a>
               </div>
@@ -182,32 +185,27 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <BranchCard
             branch={{
-              name: "Chithode",
-              subtitle: "Nadupalayam, Chithode",
-              address:
-                "36, Perundurai Road, Nadupalayam, Chithode, Erode, Tamil Nadu 638102",
-              phone: "+91 91760 99009",
-              rawPhone: "+919176099009",
-              whatsapp: "919176099009",
-              hours: [
-                "Monday – Saturday: 9:00 AM – 8:00 PM",
-                "Sunday: 10:00 AM – 2:00 PM",
-              ],
-              mapUrl: "https://maps.google.com/?q=Gen+B+Bike+Care+Chithode+Erode",
+              name: SITE_CONFIG.branches[0].name,
+              subtitle: SITE_CONFIG.branches[0].shortAddress,
+              address: SITE_CONFIG.branches[0].address,
+              phone: SITE_CONFIG.branches[0].phone,
+              rawPhone: SITE_CONFIG.branches[0].phoneRaw,
+              whatsapp: SITE_CONFIG.branches[0].whatsapp,
+              hours: SITE_CONFIG.branches[0].hours,
+              mapUrl: SITE_CONFIG.branches[0].mapUrl,
             }}
           />
 
           <BranchCard
             branch={{
-              name: "Perundurai",
-              subtitle: "Near Anna Silai, Perundurai",
-              address:
-                "Bhavani Road, 134/264, near Anna Silai, Perundurai, Karumandisellipalayam, Tamil Nadu 638052",
-              phone: "+91 91760 99119",
-              rawPhone: "+919176099119",
-              whatsapp: "919176099119",
-              hours: ["Monday – Saturday: 9:00 AM – 7:30 PM", "Sunday: Closed"],
-              mapUrl: "https://maps.google.com/?q=Gen+B+Bike+Care+Perundurai",
+              name: SITE_CONFIG.branches[1].name,
+              subtitle: SITE_CONFIG.branches[1].shortAddress,
+              address: SITE_CONFIG.branches[1].address,
+              phone: SITE_CONFIG.branches[1].phone,
+              rawPhone: SITE_CONFIG.branches[1].phoneRaw,
+              whatsapp: SITE_CONFIG.branches[1].whatsapp,
+              hours: SITE_CONFIG.branches[1].hours,
+              mapUrl: SITE_CONFIG.branches[1].mapUrl,
             }}
           />
         </div>

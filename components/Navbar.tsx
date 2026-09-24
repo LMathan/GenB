@@ -6,26 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Phone, MapPin, Calendar, Menu, X, ChevronRight, MessageSquare } from "lucide-react";
 
-export const BRANCHES = [
-  {
-    name: "Chithode",
-    address: "36, Perundurai Road, Nadupalayam, Chithode, Erode - 638102",
-    phone: "+91 91760 99009",
-    rawPhone: "+919176099009",
-    whatsapp: "919176099009",
-    hours: "Mon-Sat: 9 AM - 8 PM | Sun: 10 AM - 2 PM",
-    mapUrl: "https://maps.google.com/?q=Gen+B+Bike+Care+Chithode+Erode",
-  },
-  {
-    name: "Perundurai",
-    address: "Bhavani Road, 134/264, near Anna Silai, Perundurai - 638052",
-    phone: "+91 91760 99119",
-    rawPhone: "+919176099119",
-    whatsapp: "919176099119",
-    hours: "Mon-Sat: 9 AM - 7:30 PM",
-    mapUrl: "https://maps.google.com/?q=Gen+B+Bike+Care+Perundurai",
-  },
-];
+import { SITE_CONFIG, getPhoneHref } from "@/config/site";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -63,19 +44,19 @@ export default function Navbar() {
 
           <div className="flex items-center space-x-6">
             <a
-              href="tel:+919176099009"
+              href={getPhoneHref(SITE_CONFIG.branches[0].phoneRaw)}
               className="flex items-center hover:text-cyan-300 transition"
             >
               <Phone className="w-3.5 h-3.5 mr-1 text-[#00AEEF]" />
-              Chithode: <span className="font-semibold ml-1">+91 91760 99009</span>
+              {SITE_CONFIG.branches[0].name}: <span className="font-semibold ml-1">{SITE_CONFIG.branches[0].phone}</span>
             </a>
             <span className="text-gray-500">|</span>
             <a
-              href="tel:+919176099119"
+              href={getPhoneHref(SITE_CONFIG.branches[1].phoneRaw)}
               className="flex items-center hover:text-cyan-300 transition"
             >
               <Phone className="w-3.5 h-3.5 mr-1 text-[#00AEEF]" />
-              Perundurai: <span className="font-semibold ml-1">+91 91760 99119</span>
+              {SITE_CONFIG.branches[1].name}: <span className="font-semibold ml-1">{SITE_CONFIG.branches[1].phone}</span>
             </a>
           </div>
         </div>
@@ -196,24 +177,24 @@ export default function Navbar() {
                 Direct Branch Call
               </div>
               <a
-                href="tel:+919176099009"
+                href={getPhoneHref(SITE_CONFIG.branches[0].phoneRaw)}
                 className="flex items-center justify-between bg-white p-2.5 rounded-lg border border-slate-200 text-sm font-bold text-[#251A76]"
               >
                 <span className="flex items-center">
                   <Phone className="w-4 h-4 text-[#00AEEF] mr-2" />
-                  Chithode Branch
+                  {SITE_CONFIG.branches[0].name} Branch
                 </span>
                 <span className="text-xs text-[#00AEEF] bg-cyan-50 px-2 py-0.5 rounded">
                   Call Now
                 </span>
               </a>
               <a
-                href="tel:+919176099119"
+                href={getPhoneHref(SITE_CONFIG.branches[1].phoneRaw)}
                 className="flex items-center justify-between bg-white p-2.5 rounded-lg border border-slate-200 text-sm font-bold text-[#251A76]"
               >
                 <span className="flex items-center">
                   <Phone className="w-4 h-4 text-[#00AEEF] mr-2" />
-                  Perundurai Branch
+                  {SITE_CONFIG.branches[1].name} Branch
                 </span>
                 <span className="text-xs text-[#00AEEF] bg-cyan-50 px-2 py-0.5 rounded">
                   Call Now
@@ -259,7 +240,7 @@ export default function Navbar() {
             </div>
 
             <div className="space-y-4 my-4">
-              {BRANCHES.map((b) => (
+              {SITE_CONFIG.branches.map((b) => (
                 <div
                   key={b.name}
                   className="bg-slate-50 rounded-xl p-4 border border-slate-200 hover:border-purple-300 transition"
@@ -273,15 +254,15 @@ export default function Navbar() {
                     </span>
                   </div>
                   <p className="text-xs text-slate-600 mb-2 leading-relaxed">
-                    {b.address}
+                    {b.shortAddress}
                   </p>
                   <p className="text-xs font-medium text-slate-500 mb-3">
-                    ⏰ {b.hours}
+                    ⏰ {b.shortHours}
                   </p>
 
                   <div className="grid grid-cols-2 gap-2">
                     <a
-                      href={`tel:${b.rawPhone}`}
+                      href={getPhoneHref(b.phoneRaw)}
                       className="flex items-center justify-center py-2 px-3 rounded-lg bg-[#251A76] text-white text-xs font-bold hover:bg-[#1A1254] transition"
                     >
                       <Phone className="w-3.5 h-3.5 mr-1.5" /> Call {b.name}

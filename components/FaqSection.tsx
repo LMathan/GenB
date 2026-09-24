@@ -3,33 +3,7 @@
 import React, { useState } from "react";
 import { HelpCircle, ChevronDown, Wrench, ShieldCheck, MapPin } from "lucide-react";
 
-export interface FaqItem {
-  q: string;
-  a: string;
-}
-
-const FAQS: FaqItem[] = [
-  {
-    q: "Which motorcycle and scooter brands does GEN B BIKE CARE service?",
-    a: "GEN B BIKE CARE is a multi-brand workshop. We service Honda, TVS, Yamaha, Hero, Royal Enfield, Bajaj, Suzuki, gearless scooters, and executive motorcycles.",
-  },
-  {
-    q: "Where are your workshop branches located in Erode district?",
-    a: "We operate from two active workshop locations: 1) Chithode Branch at 36 Perundurai Road, Nadupalayam, Chithode (+91 91760 99009) and 2) Perundurai Branch at Bhavani Road, near Anna Silai, Perundurai (+91 91760 99119).",
-  },
-  {
-    q: "Do I need an appointment or can I walk in for service?",
-    a: "Both walk-in visits and online service bookings are welcome. Booking online or calling ahead allows us to reserve a service bay for faster inspection and delivery.",
-  },
-  {
-    q: "What is included in a Periodic Service package?",
-    a: "Our Periodic Service package includes engine oil check/flush, air filter cleaning or replacement, spark plug check, front & rear brake adjustment, chain lube & tension check, battery voltage test, and wash detailing.",
-  },
-  {
-    q: "How will I know when my bike service is completed?",
-    a: "Once your bike passes our final quality inspection, our branch team will call or message you on WhatsApp so you can pick up your bike at your convenience.",
-  },
-];
+import { SITE_CONFIG } from "@/config/site";
 
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -53,7 +27,7 @@ export default function FaqSection() {
       </div>
 
       <div className="max-w-3xl mx-auto space-y-3">
-        {FAQS.map((faq, index) => {
+        {SITE_CONFIG.faqs.map((faq, index) => {
           const isOpen = openIndex === index;
           return (
             <div

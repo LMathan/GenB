@@ -22,6 +22,7 @@ import {
   Search,
 } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/Icons";
+import { SITE_CONFIG, getPhoneHref, getWhatsAppHref } from "@/config/site";
 
 import BranchCard from "@/components/BranchCard";
 import BranchSwitcherTab from "@/components/BranchSwitcherTab";
@@ -165,7 +166,7 @@ export default function HomePage() {
             </Link>
 
             <a
-              href="https://wa.me/919176099009?text=Hi%20GEN%20B%20BIKE%20CARE%2C%20I%20would%20like%20to%20enquire%20about%20servicing%20my%20bike."
+              href={getWhatsAppHref(SITE_CONFIG.branches[0].whatsapp, "Hi GEN B BIKE CARE, I would like to enquire about servicing my bike.")}
               target="_blank"
               rel="noopener noreferrer"
               className="p-4 rounded-2xl bg-emerald-50/80 hover:bg-emerald-100 border border-emerald-200 transition group flex items-center space-x-3 shadow-2xs"
@@ -182,7 +183,7 @@ export default function HomePage() {
             </a>
 
             <a
-              href="tel:+919176099009"
+              href={getPhoneHref(SITE_CONFIG.branches[0].phoneRaw)}
               className="p-4 rounded-2xl bg-slate-50 hover:bg-cyan-50 border border-slate-200 hover:border-cyan-300 transition group flex items-center space-x-3 shadow-2xs"
             >
               <div className="p-3 rounded-xl bg-[#00AEEF] text-white">
@@ -449,7 +450,7 @@ export default function HomePage() {
           </div>
 
           <a
-            href="https://www.instagram.com/p/DcdafwiSVSg/"
+            href={SITE_CONFIG.social.instagram}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center px-6 py-3.5 rounded-xl bg-[#251A76] text-white text-xs font-bold shadow-md hover:bg-[#1A1254] transition"

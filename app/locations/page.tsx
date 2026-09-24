@@ -1,6 +1,7 @@
 import React from "react";
 import BranchCard from "@/components/BranchCard";
 import { MapPin, Navigation, Phone, MessageSquare, Clock } from "lucide-react";
+import { SITE_CONFIG } from "@/config/site";
 
 export const metadata = {
   title: "Locations — GEN B BIKE CARE | Chithode & Perundurai Branches",
@@ -29,32 +30,27 @@ export default function LocationsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           <BranchCard
             branch={{
-              name: "Chithode",
-              subtitle: "Nadupalayam, Chithode",
-              address:
-                "36, Perundurai Road, Nadupalayam, Chithode, Erode, Tamil Nadu 638102",
-              phone: "+91 91760 99009",
-              rawPhone: "+919176099009",
-              whatsapp: "919176099009",
-              hours: [
-                "Monday – Saturday: 9:00 AM – 8:00 PM",
-                "Sunday: 10:00 AM – 2:00 PM",
-              ],
-              mapUrl: "https://maps.google.com/?q=Gen+B+Bike+Care+Chithode+Erode",
+              name: SITE_CONFIG.branches[0].name,
+              subtitle: SITE_CONFIG.branches[0].shortAddress,
+              address: SITE_CONFIG.branches[0].address,
+              phone: SITE_CONFIG.branches[0].phone,
+              rawPhone: SITE_CONFIG.branches[0].phoneRaw,
+              whatsapp: SITE_CONFIG.branches[0].whatsapp,
+              hours: SITE_CONFIG.branches[0].hours,
+              mapUrl: SITE_CONFIG.branches[0].mapUrl,
             }}
           />
 
           <BranchCard
             branch={{
-              name: "Perundurai",
-              subtitle: "Near Anna Silai, Perundurai",
-              address:
-                "Bhavani Road, 134/264, near Anna Silai, Perundurai, Karumandisellipalayam, Tamil Nadu 638052",
-              phone: "+91 91760 99119",
-              rawPhone: "+919176099119",
-              whatsapp: "919176099119",
-              hours: ["Monday – Saturday: 9:00 AM – 7:30 PM", "Sunday: Closed"],
-              mapUrl: "https://maps.google.com/?q=Gen+B+Bike+Care+Perundurai",
+              name: SITE_CONFIG.branches[1].name,
+              subtitle: SITE_CONFIG.branches[1].shortAddress,
+              address: SITE_CONFIG.branches[1].address,
+              phone: SITE_CONFIG.branches[1].phone,
+              rawPhone: SITE_CONFIG.branches[1].phoneRaw,
+              whatsapp: SITE_CONFIG.branches[1].whatsapp,
+              hours: SITE_CONFIG.branches[1].hours,
+              mapUrl: SITE_CONFIG.branches[1].mapUrl,
             }}
           />
         </div>

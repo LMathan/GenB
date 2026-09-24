@@ -14,6 +14,7 @@ import {
   Wrench,
   Search,
 } from "lucide-react";
+import { SITE_CONFIG, getPhoneHref, getWhatsAppHref } from "@/config/site";
 
 const HERO_VIDEOS = [
   "/videos/mixkit-close-up-shot-of-a-motorcycle-engine-in-a-workshop-41929-hd-ready.mp4",
@@ -107,7 +108,7 @@ export default function VideoHero() {
               </Link>
 
               <a
-                href="https://wa.me/919176099009?text=Hi%20GEN%20B%20BIKE%20CARE%2C%20I%20would%20like%20to%20enquire%20about%20servicing%20my%20bike."
+                href={getWhatsAppHref(SITE_CONFIG.branches[0].whatsapp, "Hi GEN B BIKE CARE, I would like to enquire about servicing my bike.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4.5 rounded-2xl font-extrabold text-base text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300/80 shadow-xs transition"
@@ -148,28 +149,28 @@ export default function VideoHero() {
 
               <div className="space-y-3">
                 <a
-                  href="tel:+919176099009"
+                  href={getPhoneHref(SITE_CONFIG.branches[0].phoneRaw)}
                   className="block p-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/10 transition"
                 >
                   <div className="text-[11px] font-extrabold text-cyan-300 uppercase">
-                    Chithode Branch
+                    {SITE_CONFIG.branches[0].name} Branch
                   </div>
-                  <div className="text-base font-black text-white">+91 91760 99009</div>
+                  <div className="text-base font-black text-white">{SITE_CONFIG.branches[0].phone}</div>
                   <div className="text-[10px] text-slate-300">
-                    36, Perundurai Road, Nadupalayam
+                    {SITE_CONFIG.branches[0].shortAddress}
                   </div>
                 </a>
 
                 <a
-                  href="tel:+919176099119"
+                  href={getPhoneHref(SITE_CONFIG.branches[1].phoneRaw)}
                   className="block p-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/10 transition"
                 >
                   <div className="text-[11px] font-extrabold text-cyan-300 uppercase">
-                    Perundurai Branch
+                    {SITE_CONFIG.branches[1].name} Branch
                   </div>
-                  <div className="text-base font-black text-white">+91 91760 99119</div>
+                  <div className="text-base font-black text-white">{SITE_CONFIG.branches[1].phone}</div>
                   <div className="text-[10px] text-slate-300">
-                    Bhavani Road, near Anna Silai
+                    {SITE_CONFIG.branches[1].shortAddress}
                   </div>
                 </a>
               </div>

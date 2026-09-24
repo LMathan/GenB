@@ -16,7 +16,7 @@ import {
   Clock,
   Sparkles,
 } from "lucide-react";
-import { BRANCHES } from "./Navbar";
+import { SITE_CONFIG } from "@/config/site";
 
 const BRANDS = [
   "Honda",
@@ -49,7 +49,7 @@ export default function BookingWizard() {
 
   // Wizard States
   const [step, setStep] = useState(1);
-  const [branch, setBranch] = useState<"Chithode" | "Perundurai">("Chithode");
+  const [branch, setBranch] = useState<"chithode" | "perundurai">("chithode");
   const [bikeBrand, setBikeBrand] = useState("");
   const [bikeModel, setBikeModel] = useState("");
   const [selectedService, setSelectedService] = useState("");
@@ -61,11 +61,11 @@ export default function BookingWizard() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    const initialBranch = searchParams?.get("branch");
-    if (initialBranch === "Perundurai") {
-      setBranch("Perundurai");
-    } else if (initialBranch === "Chithode") {
-      setBranch("Chithode");
+    const initialBranch = searchParams?.get("branch")?.toLowerCase();
+    if (initialBranch === "perundurai") {
+      setBranch("perundurai");
+    } else if (initialBranch === "chithode") {
+      setBranch("chithode");
     }
 
     const initialIssue = searchParams?.get("issue");
@@ -74,7 +74,7 @@ export default function BookingWizard() {
     }
   }, [searchParams]);
 
-  const targetBranchObj = BRANCHES.find((b) => b.name === branch) || BRANCHES[0];
+  const targetBranchObj = SITE_CONFIG.branches.find((b) => b.id === branch) || SITE_CONFIG.branches[0];
 
   const handleNext = () => {
     if (step === 1 && !branch) return;
@@ -177,13 +177,13 @@ export default function BookingWizard() {
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {BRANCHES.map((b) => {
-                    const selected = branch === b.name;
+                  {SITE_CONFIG.branches.map((b) => {
+                    const selected = branch === b.id;
                     return (
                       <button
                         key={b.name}
                         type="button"
-                        onClick={() => setBranch(b.name as any)}
+                        onClick={() => setBranch(b.id as any)}
                         className={`p-5 rounded-2xl text-left border transition duration-200 flex flex-col justify-between ${
                           selected
                             ? "border-[#00AEEF] bg-cyan-50/50 shadow-md ring-2 ring-[#00AEEF]"
@@ -199,11 +199,11 @@ export default function BookingWizard() {
                               <CheckCircle2 className="w-5 h-5 text-[#00AEEF]" />
                             )}
                           </div>
-                          <p className="text-xs text-slate-600 mb-3">{b.address}</p>
+                          <p className="text-xs text-slate-600 mb-3">{b.shortAddress}</p>
                           <p className="text-xs font-semibold text-slate-500">
                             📞 {b.phone}
                           </p>
-                          <p className="text-xs text-slate-400 mt-1">⏰ {b.hours}</p>
+                          <p className="text-xs text-slate-400 mt-1 whitespace-pre-line">⏰ {b.shortHours}</p>
                         </div>
                       </button>
                     );
@@ -409,7 +409,7 @@ export default function BookingWizard() {
                 <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 mb-6 space-y-3">
                   <div className="flex justify-between border-b border-slate-200 pb-2">
                     <span className="text-xs font-bold text-slate-500">Selected Branch:</span>
-                    <span className="text-xs font-black text-[#251A76]">{branch}</span>
+                    <span className="text-xs font-black text-[#251A76]">{targetBranchObj.name}</span>
                   </div>
                   <div className="flex justify-between border-b border-slate-200 pb-2">
                     <span className="text-xs font-bold text-slate-500">Bike:</span>
@@ -482,7 +482,7 @@ export default function BookingWizard() {
               SERVICE REQUEST RECEIVED!
             </h3>
             <p className="text-sm text-slate-600 max-w-lg mx-auto mb-6">
-              Thank you, <span className="font-bold">{customerName}</span>. Your service booking request for <span className="font-bold">{bikeBrand} {bikeModel}</span> has been logged for our <span className="font-bold text-[#00AEEF]">{branch} Branch</span>.
+              Thank you, <span className="font-bold">{customerName}</span>. Your service booking request for <span className="font-bold">{bikeBrand} {bikeModel}</span> has been logged for our <span className="font-bold text-[#00AEEF]">{targetBranchObj.name} Branch</span>.
             </p>
 
             {/* Immediate Action Buttons */}
@@ -498,11 +498,11 @@ export default function BookingWizard() {
               </a>
 
               <a
-                href={`tel:${targetBranchObj.rawPhone}`}
+                href={`tel:${targetBranchObj.phoneRaw}`}
                 className="w-full flex items-center justify-center py-3 px-4 rounded-xl bg-[#251A76] hover:bg-[#1A1254] text-white font-extrabold text-xs transition"
               >
                 <Phone className="w-4 h-4 mr-2 text-[#00AEEF]" />
-                CALL {branch.toUpperCase()} BRANCH NOW ({targetBranchObj.phone})
+                CALL {targetBranchObj.name.toUpperCase()} BRANCH NOW ({targetBranchObj.phone})
               </a>
             </div>
 

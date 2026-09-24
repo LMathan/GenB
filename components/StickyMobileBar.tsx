@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Phone, MessageSquare, Calendar, MapPin, X } from "lucide-react";
-import { BRANCHES } from "./Navbar";
+import { SITE_CONFIG, getPhoneHref, getWhatsAppHref } from "@/config/site";
 
 export default function StickyMobileBar() {
   const [branchSelectorModal, setBranchSelectorModal] = useState<
@@ -86,13 +86,14 @@ export default function StickyMobileBar() {
             </p>
 
             <div className="space-y-3 mb-4">
-              {BRANCHES.map((branch) => {
+              {SITE_CONFIG.branches.map((branch) => {
                 let targetHref = "#";
-                if (branchSelectorModal === "call") targetHref = `tel:${branch.rawPhone}`;
+                if (branchSelectorModal === "call") targetHref = getPhoneHref(branch.phoneRaw);
                 if (branchSelectorModal === "whatsapp")
-                  targetHref = `https://wa.me/${branch.whatsapp}?text=${encodeURIComponent(
+                  targetHref = getWhatsAppHref(
+                    branch.whatsapp,
                     "Hi GEN B BIKE CARE, I would like to enquiry about servicing my bike."
-                  )}`;
+                  );
                 if (branchSelectorModal === "map") targetHref = branch.mapUrl;
 
                 return (

@@ -3,41 +3,7 @@
 import React from "react";
 import { Star, ExternalLink, ShieldCheck, Quote, ThumbsUp } from "lucide-react";
 
-export interface ReviewItem {
-  id: number;
-  author: string;
-  rating: number;
-  date: string;
-  branch: string;
-  text: string;
-}
-
-const REVIEWS: ReviewItem[] = [
-  {
-    id: 1,
-    author: "Local Rider (Verified Customer)",
-    rating: 5,
-    date: "Google Business Review",
-    branch: "Chithode Branch",
-    text: "Excellent service for multi-brand bikes. Polite behavior, transparent explanation of work needed, and prompt turnaround.",
-  },
-  {
-    id: 2,
-    author: "Verified Bike Owner",
-    rating: 5,
-    date: "Google Business Review",
-    branch: "Chithode Branch",
-    text: "Professional bike service workshop in Chithode region. Thorough checkup and clean delivery.",
-  },
-  {
-    id: 3,
-    author: "Two-Wheeler Owner",
-    rating: 5,
-    date: "Google Business Review",
-    branch: "Chithode Branch",
-    text: "Satisfied with their periodic service and chain maintenance work. Highly recommended local workshop.",
-  },
-];
+import { SITE_CONFIG } from "@/config/site";
 
 export default function ReviewsSection() {
   return (
@@ -81,7 +47,7 @@ export default function ReviewsSection() {
 
       {/* Review Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
-        {REVIEWS.map((rev) => (
+        {SITE_CONFIG.reviews.map((rev) => (
           <div
             key={rev.id}
             className="bg-slate-50 rounded-2xl p-5 border border-slate-200/80 flex flex-col justify-between hover:border-purple-200 transition"

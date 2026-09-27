@@ -131,15 +131,16 @@ export default function ServicesSection() {
     return () => clearInterval(interval);
   }, [isPaused]);
 
-  // Scroll active card into view when activeIndex changes
+  // Scroll active card into view ONLY inside the carousel container (does not scroll the browser page)
   useEffect(() => {
     if (containerRef.current) {
-      const card = containerRef.current.children[activeIndex] as HTMLElement;
+      const container = containerRef.current;
+      const card = container.children[activeIndex] as HTMLElement;
       if (card) {
-        card.scrollIntoView({
+        const targetScrollLeft = card.offsetLeft - (container.clientWidth / 2 - card.clientWidth / 2);
+        container.scrollTo({
+          left: Math.max(0, targetScrollLeft),
           behavior: "smooth",
-          block: "nearest",
-          inline: "center",
         });
       }
     }

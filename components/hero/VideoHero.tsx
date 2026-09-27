@@ -69,118 +69,63 @@ export default function VideoHero() {
       </div>
 
       {/* Hero Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-center lg:text-left">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Text & CTAs */}
-          <div className="lg:col-span-7 space-y-6">
-            {/* Dual Location Pill */}
-            <div className="inline-flex items-center space-x-2 bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/40 shadow-xl text-xs font-black text-[#251A76]">
-              <MapPin className="w-3.5 h-3.5 text-[#00AEEF]" />
-              <span className="text-[#00AEEF] font-black">CHITHODE</span>
-              <span className="text-slate-300">•</span>
-              <span className="text-[#00AEEF] font-black">PERUNDURAI</span>
-              <span className="text-slate-300">•</span>
-              <span className="text-slate-700 font-bold">ERODE REGION</span>
-            </div>
-
-            {/* Main Brand Title */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] drop-shadow-2xl">
-              GEN B <span className="text-[#00AEEF]">BIKE CARE</span>
-            </h1>
-
-            <div className="text-lg sm:text-2xl font-black text-cyan-300 tracking-wider uppercase flex items-center justify-center lg:justify-start space-x-2">
-              <span className="w-8 h-0.5 bg-[#00AEEF] hidden sm:block" />
-              <span>&ldquo;The Multi-Brand Bike Services&rdquo;</span>
-            </div>
-
-            <p className="text-base sm:text-xl text-slate-200 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium drop-shadow-md">
-              Professional care for your motorcycle or gearless scooter, from routine maintenance to essential engine, brake, and electrical servicing.
-            </p>
-
-            {/* CTAs */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <Link
-                href="/book"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4.5 rounded-2xl font-black text-base text-white bg-[#00AEEF] hover:bg-[#0099D4] shadow-xl shadow-cyan-500/30 active:scale-95 transition duration-200"
-              >
-                <Calendar className="w-5 h-5 mr-2.5" />
-                BOOK A SERVICE
-              </Link>
-
-              <a
-                href={getWhatsAppHref(SITE_CONFIG.branches[0].whatsapp, "Hi GEN B BIKE CARE, I would like to enquire about servicing my bike.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4.5 rounded-2xl font-extrabold text-base text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300/80 shadow-xs transition"
-              >
-                <MessageSquare className="w-5 h-5 mr-2.5 text-emerald-600" />
-                WHATSAPP US
-              </a>
-            </div>
-
-            {/* Stat Badges Bar */}
-            <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-slate-200 font-bold border-t border-white/10">
-              <div className="flex items-center">
-                <Star className="w-4 h-4 text-amber-400 fill-current mr-1.5" />
-                5.0 ★ Google Rating (Chithode)
-              </div>
-              <div className="flex items-center">
-                <MapPin className="w-4 h-4 text-[#00AEEF] mr-1.5" />
-                2 Workshop Locations
-              </div>
-              <div className="flex items-center">
-                <ShieldCheck className="w-4 h-4 text-[#00AEEF] mr-1.5" />
-                Multi-Brand Service Center
-              </div>
-            </div>
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-center">
+        <div className="space-y-6 max-w-4xl mx-auto">
+          {/* Dual Location Pill */}
+          <div className="inline-flex items-center space-x-2 bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/40 shadow-xl text-xs font-black text-[#251A76]">
+            <MapPin className="w-3.5 h-3.5 text-[#00AEEF]" />
+            <span className="text-[#00AEEF] font-black">CHITHODE</span>
+            <span className="text-slate-300">•</span>
+            <span className="text-[#00AEEF] font-black">PERUNDURAI</span>
+            <span className="text-slate-300">•</span>
+            <span className="text-slate-700 font-bold">ERODE REGION</span>
           </div>
 
-          {/* Right Workshop Card Preview */}
-          <div className="lg:col-span-5 relative hidden lg:block">
-            <div className="relative rounded-3xl overflow-hidden border-4 border-white/20 shadow-2xl bg-white/10 backdrop-blur-md p-6 space-y-4 text-left text-white border border-white/20">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-cyan-300 uppercase tracking-wider">
-                  WORKSHOP DIRECTORY
-                </span>
-                <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/80 border border-emerald-500/40 px-2.5 py-0.5 rounded-full">
-                  Open Today
-                </span>
-              </div>
+          {/* Main Brand Title */}
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] drop-shadow-2xl">
+            GEN B <span className="text-[#00AEEF]">BIKE CARE</span>
+          </h1>
 
-              <div className="space-y-3">
-                <a
-                  href={getPhoneHref(SITE_CONFIG.branches[0].phoneRaw)}
-                  className="block p-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/10 transition"
-                >
-                  <div className="text-[11px] font-extrabold text-cyan-300 uppercase">
-                    {SITE_CONFIG.branches[0].name} Branch
-                  </div>
-                  <div className="text-base font-black text-white">{SITE_CONFIG.branches[0].phone}</div>
-                  <div className="text-[10px] text-slate-300">
-                    {SITE_CONFIG.branches[0].shortAddress}
-                  </div>
-                </a>
+          <div className="text-lg sm:text-2xl font-black text-cyan-300 tracking-wider uppercase flex items-center justify-center space-x-2">
+            <span className="w-8 h-0.5 bg-[#00AEEF] hidden sm:block" />
+            <span>&ldquo;The Multi-Brand Bike Services&rdquo;</span>
+            <span className="w-8 h-0.5 bg-[#00AEEF] hidden sm:block" />
+          </div>
 
-                <a
-                  href={getPhoneHref(SITE_CONFIG.branches[1].phoneRaw)}
-                  className="block p-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/10 transition"
-                >
-                  <div className="text-[11px] font-extrabold text-cyan-300 uppercase">
-                    {SITE_CONFIG.branches[1].name} Branch
-                  </div>
-                  <div className="text-base font-black text-white">{SITE_CONFIG.branches[1].phone}</div>
-                  <div className="text-[10px] text-slate-300">
-                    {SITE_CONFIG.branches[1].shortAddress}
-                  </div>
-                </a>
-              </div>
+          <p className="text-base sm:text-xl text-slate-200 leading-relaxed max-w-2xl mx-auto font-medium drop-shadow-md">
+            Professional care for your motorcycle or gearless scooter, from routine maintenance to essential engine, brake, and electrical servicing.
+          </p>
 
-              <Link
-                href="/locations"
-                className="w-full flex items-center justify-center py-2.5 px-4 rounded-xl bg-[#00AEEF] hover:bg-[#0099D4] text-white font-black text-xs shadow-md transition"
-              >
-                VIEW FULL BRANCH DETAILS & MAPS
-              </Link>
+          {/* CTAs */}
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/book"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4.5 rounded-2xl font-black text-base text-white bg-[#00AEEF] hover:bg-[#0099D4] shadow-xl shadow-cyan-500/30 active:scale-95 transition duration-200"
+            >
+              <Calendar className="w-5 h-5 mr-2.5" />
+              BOOK A SERVICE
+            </Link>
+
+            <a
+              href={getWhatsAppHref(SITE_CONFIG.branches[0].whatsapp, "Hi GEN B BIKE CARE, I would like to enquire about servicing my bike.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4.5 rounded-2xl font-extrabold text-base text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300/80 shadow-xs transition"
+            >
+              <MessageSquare className="w-5 h-5 mr-2.5 text-emerald-600" />
+              WHATSAPP US
+            </a>
+          </div>
+
+          {/* Stat Badges Bar */}
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-200 font-bold border-t border-white/10">
+            <div className="flex items-center">
+              <MapPin className="w-4 h-4 text-[#00AEEF] mr-1.5" />
+              2 Workshop Locations
+            </div>
+            <div className="flex items-center">
+              <ShieldCheck className="w-4 h-4 text-[#00AEEF] mr-1.5" />
+              Multi-Brand Service Center
             </div>
           </div>
         </div>

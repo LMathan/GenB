@@ -35,6 +35,7 @@ import BookingWizard from "@/components/BookingWizard";
 import VideoHero from "@/components/hero/VideoHero";
 import InfiniteMarquee from "@/components/InfiniteMarquee";
 import ServicesSection from "@/components/ServicesSection";
+import PopupPosterModal from "@/components/PopupPosterModal";
 
 export const metadata = {
   title: "GEN B BIKE CARE — Multi-Brand Bike Service Center | Chithode & Perundurai",
@@ -377,6 +378,8 @@ export default function HomePage() {
           <BookingWizard />
         </Suspense>
       </section>
+      {/* POPUP OFFER POSTER MODAL ON WEBSITE OPEN */}
+      <PopupPosterModal />
     </div>
   );
 }

@@ -9,12 +9,9 @@ export default function PopupPosterModal() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Show modal after 600ms delay on page load if not closed in this session
+    // Show modal on every page load / refresh after 600ms
     const timer = setTimeout(() => {
-      const hasClosed = sessionStorage.getItem("genb_offer_closed");
-      if (!hasClosed) {
-        setIsOpen(true);
-      }
+      setIsOpen(true);
     }, 600);
 
     return () => clearTimeout(timer);
@@ -41,7 +38,6 @@ export default function PopupPosterModal() {
 
   const closeModal = () => {
     setIsOpen(false);
-    sessionStorage.setItem("genb_offer_closed", "true");
   };
 
   if (!isOpen) return null;

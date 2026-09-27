@@ -85,6 +85,9 @@
   --shadow-subtle: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
   --shadow-elevated: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
   --shadow-focus: 0 0 0 2px var(--genb-bg), 0 0 0 4px var(--genb-primary);
+
+  /* Marquee Animations */
+  --animate-marquee: marquee 30s linear infinite;
 }
 
 @theme inline {
@@ -130,6 +133,11 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
 }
 
 /* =========================================

@@ -97,18 +97,23 @@ export default function BookingWizard() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+    const whatsappUrl = generateWhatsappMessage();
+    if (typeof window !== "undefined") {
+      window.open(whatsappUrl, "_blank");
+    }
   };
 
   const generateWhatsappMessage = () => {
-    const msg = `Hi GEN B BIKE CARE, I would like to book a service.
+    const branchName = targetBranchObj.name;
+    const msg = `Hi GEN B BIKE CARE (${branchName} Branch), I would like to book a service.
 
-📍 Branch: ${branch}
+📍 Branch: ${branchName} Branch
 🏍️ Bike: ${bikeBrand} ${bikeModel}
-🔧 Service: ${selectedService || problemDescription}
-👤 Name: ${customerName}
-📞 Phone: ${customerPhone}
-📅 Date: ${preferredDate}
-⏰ Time: ${preferredTime}`;
+🔧 Service: ${selectedService}${problemDescription ? ` (${problemDescription})` : ""}
+👤 Customer Name: ${customerName}
+📞 Contact Phone: ${customerPhone}
+📅 Preferred Date: ${preferredDate}
+⏰ Preferred Time: ${preferredTime}`;
 
     return getWhatsAppHref(targetBranchObj.whatsapp, msg);
   };

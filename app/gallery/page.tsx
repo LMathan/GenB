@@ -1,9 +1,11 @@
 import React from "react";
 import GalleryGrid from "@/components/GalleryGrid";
 import { Camera } from "lucide-react";
+import { canonicalFor } from "@/config/site";
 
 export const metadata = {
   title: "Workshop Gallery — GEN B BIKE CARE | Inside Our Workshop",
+  ...canonicalFor("/gallery"),
   description:
     "View photos of GEN B BIKE CARE workshop facilities, motorcycle servicing, diagnostic work, and completed customer bikes in Chithode and Perundurai.",
 };

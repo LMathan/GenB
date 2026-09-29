@@ -1,9 +1,11 @@
 import React, { Suspense } from "react";
 import BookingWizard from "@/components/BookingWizard";
 import { Calendar } from "lucide-react";
+import { canonicalFor } from "@/config/site";
 
 export const metadata = {
   title: "Book a Service — GEN B BIKE CARE | Chithode & Perundurai",
+  ...canonicalFor("/book"),
   description:
     "Book your motorcycle or scooter service online with GEN B BIKE CARE. Select Chithode or Perundurai branch, select your bike brand, and schedule your appointment.",
 };
@@ -20,7 +22,8 @@ export default function BookPage() {
             BOOK YOUR BIKE SERVICE
           </h1>
           <p className="text-slate-600 text-base mt-3 leading-relaxed">
-            Quick 6-step online service request for Chithode and Perundurai workshop locations.
+            Quick 3-step online service request for Chithode and Perundurai workshop locations.
+            Your details are saved with a booking reference and WhatsApp opens ready to send.
           </p>
         </div>
 

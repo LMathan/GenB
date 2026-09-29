@@ -1,17 +1,34 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { X, MessageSquare, Calendar, Sparkles, CheckCircle2, Tag, Gift, Wrench } from "lucide-react";
 import { SITE_CONFIG, getWhatsAppHref } from "@/config/site";
 
+const POPUP_SEEN_KEY = "gb_popup_seen";
+
 export default function PopupPosterModal() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const closeModal = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   useEffect(() => {
-    // Show modal on every page load / refresh after 600ms
+    // Show the offer popup once per browser session (not on every page load)
+    try {
+      if (sessionStorage.getItem(POPUP_SEEN_KEY) === "1") return;
+    } catch {
+      // sessionStorage unavailable (private mode etc.) — still show once
+    }
+
     const timer = setTimeout(() => {
       setIsOpen(true);
+      try {
+        sessionStorage.setItem(POPUP_SEEN_KEY, "1");
+      } catch {
+        // ignore
+      }
     }, 600);
 
     return () => clearTimeout(timer);
@@ -34,11 +51,7 @@ export default function PopupPosterModal() {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "auto";
     };
-  }, [isOpen]);
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  }, [isOpen, closeModal]);
 
   if (!isOpen) return null;
 
@@ -48,7 +61,12 @@ export default function PopupPosterModal() {
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto animate-fadeIn">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto animate-fadeIn"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Special service offer"
+    >
       {/* Dark Blur Backdrop */}
       <div
         onClick={closeModal}

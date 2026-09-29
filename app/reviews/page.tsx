@@ -1,9 +1,11 @@
 import React from "react";
 import ReviewsSection from "@/components/ReviewsSection";
 import { Star } from "lucide-react";
+import { canonicalFor } from "@/config/site";
 
 export const metadata = {
   title: "Reviews & Ratings — GEN B BIKE CARE | Customer Feedback",
+  ...canonicalFor("/reviews"),
   description:
     "Read customer reviews for GEN B BIKE CARE Chithode & Perundurai branches. 5.0 Star Google Business verified ratings.",
 };

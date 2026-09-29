@@ -23,15 +23,19 @@ const HERO_VIDEOS = [
 ];
 
 export default function VideoHero() {
+  // Start with the canonical order so server HTML == first client render
+  // (avoids React hydration mismatch). Shuffled after mount below.
   const [playlist, setPlaylist] = useState<string[]>(HERO_VIDEOS);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // Randomly shuffle playlist order on client mount
   useEffect(() => {
-    const shuffled = [...HERO_VIDEOS].sort(() => Math.random() - 0.5);
-    setPlaylist(shuffled);
-    setCurrentIndex(0);
+    // Deferred to a macrotask so it runs strictly after hydration and is not
+    // a synchronous setState-in-effect.
+    const id = window.setTimeout(() => {
+      setPlaylist([...HERO_VIDEOS].sort(() => Math.random() - 0.5));
+    }, 0);
+    return () => window.clearTimeout(id);
   }, []);
 
   const handleEnded = () => {

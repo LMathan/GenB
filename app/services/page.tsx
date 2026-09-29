@@ -15,11 +15,12 @@ import {
 
 export const metadata = {
   title: "Services — GEN B BIKE CARE | Multi-Brand Bike Services",
+  ...canonicalFor("/services"),
   description:
     "Explore complete bike services offered by GEN B BIKE CARE in Chithode and Perundurai: Periodic service, engine tuning, brake repairs, chain sprocket, electrical troubleshooting.",
 };
 
-import { SITE_CONFIG, getWhatsAppHref } from "@/config/site";
+import { SITE_CONFIG, getWhatsAppHref, canonicalFor } from "@/config/site";
 
 export default function ServicesPage() {
   return (

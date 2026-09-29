@@ -9,6 +9,7 @@ export interface Branch {
   hours: string[];
   shortHours: string;
   mapUrl: string;
+  placeId: string;     // Google Maps Place ID (live reviews); empty = curated reviews
 }
 
 export interface Service {
@@ -71,7 +72,10 @@ export const SITE_CONFIG = {
         "Sunday: 10:00 AM – 2:00 PM"
       ],
       shortHours: "Mon-Sat 9AM-8PM | Sun 10AM-2PM",
-      mapUrl: "https://maps.google.com/?q=Gen+B+Bike+Care+Chithode+Erode"
+      mapUrl: "https://maps.google.com/?q=Gen+B+Bike+Care+Chithode+Erode",
+      // Google Maps Place ID for live review fetching (lib/reviews.ts).
+      // Find it: https://developers.google.com/maps/documentation/places/web-service/place-id
+      placeId: "",
     },
     {
       id: "perundurai",
@@ -86,7 +90,8 @@ export const SITE_CONFIG = {
         "Sunday: Closed"
       ],
       shortHours: "Mon-Sat 9:00 AM – 7:30 PM",
-      mapUrl: "https://maps.google.com/?q=Gen+B+Bike+Care+Perundurai"
+      mapUrl: "https://maps.google.com/?q=Gen+B+Bike+Care+Perundurai",
+      placeId: "",
     }
   ] as Branch[],
 
@@ -304,6 +309,11 @@ export const SITE_CONFIG = {
     },
   ] as ReviewItem[],
 };
+
+// SEO Helper: per-page canonical URL (spread into each page's metadata)
+export function canonicalFor(path: string) {
+  return { alternates: { canonical: `https://genbbikecare.com${path}` } };
+}
 
 // URL Helpers
 export function getPhoneHref(phoneRaw: string): string {

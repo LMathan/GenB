@@ -1,10 +1,11 @@
 import React from "react";
 import BranchCard from "@/components/BranchCard";
 import { MapPin, Navigation, Phone, MessageSquare, Clock } from "lucide-react";
-import { SITE_CONFIG } from "@/config/site";
+import { SITE_CONFIG, canonicalFor } from "@/config/site";
 
 export const metadata = {
   title: "Locations — GEN B BIKE CARE | Chithode & Perundurai Branches",
+  ...canonicalFor("/locations"),
   description:
     "Find GEN B BIKE CARE workshop branches in Chithode (Nadupalayam) and Perundurai (near Anna Silai). Phone numbers, map directions & working hours.",
 };

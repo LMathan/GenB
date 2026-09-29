@@ -4,12 +4,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileBar from "@/components/StickyMobileBar";
 import SmoothScroll from "@/components/SmoothScroll";
-import { SITE_CONFIG } from "@/config/site";
+import { SITE_CONFIG, canonicalFor } from "@/config/site";
 import "./globals.css";
 
+// Variable font: covers all weights 200–800 incl. real 800, no faux-bold
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-sans",
 });
 
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     "multi brand bike service center",
   ],
   alternates: {
-    canonical: "https://genbbikecare.com",
+    ...canonicalFor("/"),
     languages: {
       "en-IN": "https://genbbikecare.in",
     },
@@ -82,7 +82,7 @@ export default function RootLayout({
     "@type": "AutoRepair",
     name: `GEN B BIKE CARE — Bike Service Center ${SITE_CONFIG.branches[0].name}`,
     image: "https://genbbikecare.com/logo.png",
-    telePhone: SITE_CONFIG.branches[0].phoneRaw,
+    telephone: SITE_CONFIG.branches[0].phoneRaw,
     url: "https://genbbikecare.com",
     sameAs: ["https://genbbikecare.in", SITE_CONFIG.social.instagram],
     description:
@@ -123,7 +123,7 @@ export default function RootLayout({
     "@type": "AutoRepair",
     name: `GEN B BIKE CARE — Bike Service Center ${SITE_CONFIG.branches[1].name}`,
     image: "https://genbbikecare.com/logo.png",
-    telePhone: SITE_CONFIG.branches[1].phoneRaw,
+    telephone: SITE_CONFIG.branches[1].phoneRaw,
     url: "https://genbbikecare.com",
     sameAs: ["https://genbbikecare.in", SITE_CONFIG.social.instagram],
     description:

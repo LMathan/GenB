@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { canonicalFor } from "@/config/site";
 import {
   Calendar,
   Phone,
@@ -39,6 +40,7 @@ import PopupPosterModal from "@/components/PopupPosterModal";
 
 export const metadata = {
   title: "GEN B BIKE CARE — Multi-Brand Bike Service Center | Chithode & Perundurai",
+  ...canonicalFor("/"),
   description:
     "GEN B BIKE CARE: Multi-brand bike service center near me in Chithode and Perundurai, Erode. Honda bike service, Hero bike service, Bajaj, TVS, Yamaha, Royal Enfield & chain cleaning.",
 };

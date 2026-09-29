@@ -1,9 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import { ShieldCheck, MapPin, Wrench, Award, CheckCircle2, ArrowRight } from "lucide-react";
+import { canonicalFor } from "@/config/site";
 
 export const metadata = {
   title: "About Us — GEN B BIKE CARE | Multi-Brand Bike Services",
+  ...canonicalFor("/about"),
   description:
     "Learn about GEN B BIKE CARE: Multi-brand two-wheeler workshop operating in Chithode and Perundurai, Erode. Focused on reliable service, transparent inspection & customer care.",
 };

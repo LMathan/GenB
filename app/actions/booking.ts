@@ -68,6 +68,12 @@ export async function saveBooking(
   const preferredDate = clean(formData.get("preferredDate"), 10);
   const preferredTime = clean(formData.get("preferredTime"), 60);
 
+  // Doorstep pickup (checkbox-driven). Address is mandatory when pickup is requested.
+  const needPickup = formData.get("needPickup") === "yes";
+  const pickupAddress = clean(formData.get("pickupAddress"), 300);
+  const pickupContact = clean(formData.get("pickupContact"), 15);
+  const pickupNotes = clean(formData.get("pickupNotes"), 300);
+
   const missing: string[] = [];
   if (!bikeBrand) missing.push("bike brand");
   if (!bikeModel) missing.push("bike model");
@@ -93,6 +99,26 @@ export async function saveBooking(
       error: "Invalid phone number.",
     };
   }
+  if (needPickup && !pickupAddress) {
+    return {
+      ok: false,
+      reference: "",
+      saved: false,
+      skipped: false,
+      whatsappUrl: "",
+      error: "Pickup address is required for doorstep pickup.",
+    };
+  }
+  if (pickupContact && !/^[0-9+\-\s]{10,15}$/.test(pickupContact)) {
+    return {
+      ok: false,
+      reference: "",
+      saved: false,
+      skipped: false,
+      whatsappUrl: "",
+      error: "Invalid pickup contact number.",
+    };
+  }
 
   const branch =
     SITE_CONFIG.branches.find((b) => b.id === branchId) ?? SITE_CONFIG.branches[0];
@@ -109,6 +135,10 @@ export async function saveBooking(
     customerPhone,
     preferredDate,
     preferredTime,
+    needPickup,
+    pickupAddress: needPickup ? pickupAddress : undefined,
+    pickupContact: needPickup && pickupContact ? pickupContact : undefined,
+    pickupNotes: needPickup && pickupNotes ? pickupNotes : undefined,
   };
 
   // Build the exact WhatsApp URL server-side (same builder as the preview).
@@ -135,6 +165,9 @@ export async function saveBooking(
         customerPhone,
         preferredDate,
         preferredTime,
+        pickupRequired: needPickup ? "Yes" : "No",
+        pickupAddress: needPickup ? pickupAddress : "",
+        pickupContact: needPickup && pickupContact ? pickupContact : "",
       });
 
       const fetchWithTimeout = Promise.race([
@@ -146,15 +179,29 @@ export async function saveBooking(
           redirect: "follow",
           cache: "no-store",
         }),
+        // 10s: Apps Script cold starts after a new deployment can take 5-8s.
+        // A 5s cutoff reported "not saved" while Google was still writing the
+        // row — a false orange warning on the success screen.
         new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error("Sheet request timed out")), 5000)
+          setTimeout(() => reject(new Error("Sheet request timed out")), 10000)
         ),
       ]);
 
       const res = await fetchWithTimeout;
+
+      // Trust the script's own JSON answer ({ ok: true/false }) over the HTTP
+      // status alone: a 200 with { ok: false } means the secret mismatched and
+      // nothing was written — that must NOT show as saved.
       saved = res.ok;
-      if (!res.ok) {
-        console.error(`[booking] Sheet responded ${res.status} for ${reference}`);
+      try {
+        const ack = (await res.json()) as { ok?: boolean };
+        if (typeof ack?.ok === "boolean") saved = ack.ok;
+      } catch {
+        // Non-JSON body (redirect HTML etc.) — fall back to the HTTP status.
+      }
+
+      if (!saved) {
+        console.error(`[booking] Sheet did not confirm save for ${reference} (HTTP ${res.status})`);
       }
     } catch (err) {
       // Never let a sheet outage break the booking flow.

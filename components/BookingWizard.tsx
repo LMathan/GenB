@@ -115,6 +115,10 @@ function WizardForm({ onBookAnother }: { onBookAnother: () => void }) {
   const [customerPhone, setCustomerPhone] = useState("");
   const [preferredDate, setPreferredDate] = useState("");
   const [preferredTime, setPreferredTime] = useState(TIME_WINDOWS[0]);
+  const [needPickup, setNeedPickup] = useState(false);
+  const [pickupAddress, setPickupAddress] = useState("");
+  const [pickupContact, setPickupContact] = useState("");
+  const [pickupNotes, setPickupNotes] = useState("");
 
   const [actionState, formAction, isPending] = useActionState(
     saveBooking,
@@ -153,6 +157,8 @@ function WizardForm({ onBookAnother }: { onBookAnother: () => void }) {
       if (!service && !problemNotes.trim())
         return "Select a service category or describe the problem in the notes.";
       if (!preferredDate) return "Please choose your preferred service date.";
+      if (needPickup && !pickupAddress.trim())
+        return "Please enter the pickup address (required for doorstep pickup).";
       return null;
     }
     return null; // Step 3 uses native required fields + server-side validation.
@@ -189,6 +195,8 @@ function WizardForm({ onBookAnother }: { onBookAnother: () => void }) {
   const showModelError = stepError !== null && step === 1 && !bikeModel.trim();
   const showServiceError = stepError !== null && step === 2 && !service && !problemNotes.trim();
   const showDateError = stepError !== null && step === 2 && !preferredDate;
+  const showPickupAddressError =
+    stepError !== null && step === 2 && needPickup && !pickupAddress.trim();
 
   // Exact preview of the WhatsApp message (reference is appended server-side).
   const previewMessage = useMemo(
@@ -203,8 +211,12 @@ function WizardForm({ onBookAnother }: { onBookAnother: () => void }) {
         customerPhone: customerPhone.trim() || "(phone)",
         preferredDate: preferredDate || "(date)",
         preferredTime,
+        needPickup,
+        pickupAddress: pickupAddress.trim() || undefined,
+        pickupContact: pickupContact.trim() || undefined,
+        pickupNotes: pickupNotes.trim() || undefined,
       }),
-    [branchObj.name, bikeBrand, bikeModel, service, problemNotes, customerName, customerPhone, preferredDate, preferredTime]
+    [branchObj.name, bikeBrand, bikeModel, service, problemNotes, customerName, customerPhone, preferredDate, preferredTime, needPickup, pickupAddress, pickupContact, pickupNotes]
   );
 
   const inputBase =
@@ -339,6 +351,10 @@ function WizardForm({ onBookAnother }: { onBookAnother: () => void }) {
             <input type="hidden" name="notes" value={problemNotes} />
             <input type="hidden" name="preferredDate" value={preferredDate} />
             <input type="hidden" name="preferredTime" value={preferredTime} />
+            <input type="hidden" name="needPickup" value={needPickup ? "yes" : "no"} />
+            <input type="hidden" name="pickupAddress" value={needPickup ? pickupAddress : ""} />
+            <input type="hidden" name="pickupContact" value={needPickup ? pickupContact : ""} />
+            <input type="hidden" name="pickupNotes" value={needPickup ? pickupNotes : ""} />
 
             {actionState.error && (
               <div className="mb-6 flex items-start rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-xs font-bold text-red-700">
@@ -526,6 +542,97 @@ function WizardForm({ onBookAnother }: { onBookAnother: () => void }) {
                       ))}
                     </select>
                   </div>
+                </div>
+
+                {/* Doorstep pickup option */}
+                <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
+                  <label className="flex items-start gap-3 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={needPickup}
+                      onChange={(e) => {
+                        setNeedPickup(e.target.checked);
+                        if (!e.target.checked) {
+                          // Clear pickup fields when unchecked so stale data
+                          // never reaches WhatsApp or the sheet.
+                          setPickupAddress("");
+                          setPickupContact("");
+                          setPickupNotes("");
+                        }
+                      }}
+                      className="mt-0.5 w-4.5 h-4.5 accent-[#00AEEF] cursor-pointer"
+                    />
+                    <span>
+                      <span className="block text-sm font-extrabold text-[#251A76]">
+                        Yes, I need my bike picked up (Doorstep Pickup)
+                      </span>
+                      <span className="block text-xs text-slate-500 mt-0.5">
+                        Our pickup rider collects your bike from your address and delivers it back
+                        after service.
+                      </span>
+                    </span>
+                  </label>
+
+                  {needPickup && (
+                    <div className="mt-4 space-y-4 animate-fadeIn">
+                      <div>
+                        <label
+                          htmlFor="pickupAddress"
+                          className="block text-xs font-extrabold text-[#251A76] uppercase mb-2"
+                        >
+                          Pickup Address *
+                        </label>
+                        <textarea
+                          id="pickupAddress"
+                          rows={2}
+                          value={pickupAddress}
+                          onChange={(e) => setPickupAddress(e.target.value)}
+                          placeholder="House / street, area, landmark, city..."
+                          className={`${inputBase} ${showPickupAddressError ? inputErr : inputOk} font-medium`}
+                        />
+                        {showPickupAddressError && (
+                          <p className="mt-2 text-xs font-bold text-red-600 flex items-center">
+                            <AlertCircle className="w-3.5 h-3.5 mr-1" /> Pickup address is required for doorstep pickup.
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label
+                            htmlFor="pickupContact"
+                            className="block text-xs font-extrabold text-[#251A76] uppercase mb-2"
+                          >
+                            Alternate Contact at Pickup (Optional)
+                          </label>
+                          <input
+                            id="pickupContact"
+                            type="tel"
+                            value={pickupContact}
+                            onChange={(e) => setPickupContact(e.target.value)}
+                            placeholder="If someone else hands over the bike"
+                            className={`${inputBase} ${inputOk}`}
+                          />
+                        </div>
+                        <div>
+                          <label
+                            htmlFor="pickupNotes"
+                            className="block text-xs font-extrabold text-[#251A76] uppercase mb-2"
+                          >
+                            Pickup Instructions (Optional)
+                          </label>
+                          <input
+                            id="pickupNotes"
+                            type="text"
+                            value={pickupNotes}
+                            onChange={(e) => setPickupNotes(e.target.value)}
+                            placeholder="e.g. Bike in basement parking, call before coming"
+                            className={`${inputBase} ${inputOk}`}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {showServiceError && (

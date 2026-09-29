@@ -19,10 +19,10 @@ Server Action (app/actions/booking.ts)
 ### 1. Create the sheet
 
 1. Create a new Google Sheet.
-2. In row 1, add these headers (exact order):
+2. In row 1, add these headers (exact order — 14 columns):
 
    ```
-   Timestamp | Booking Ref | Branch | Bike Brand | Bike Model | Service | Notes | Customer Name | Customer Phone | Preferred Date | Preferred Time
+   Timestamp | Booking Ref | Branch | Bike Brand | Bike Model | Service | Notes | Customer Name | Customer Phone | Preferred Date | Preferred Time | Pickup Required | Pickup Address | Pickup Contact
    ```
 
 ### 2. Add the Apps Script
@@ -54,6 +54,9 @@ Server Action (app/actions/booking.ts)
          body.customerPhone,
          body.preferredDate,
          body.preferredTime,
+         body.pickupRequired || "No",
+         body.pickupAddress || "",
+         body.pickupContact || "",
        ]);
 
        return ContentService.createTextOutput(JSON.stringify({ ok: true }))
